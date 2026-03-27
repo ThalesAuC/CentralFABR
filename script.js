@@ -1,5 +1,5 @@
 // Configurações Mockadas
-const API_BASE_URL = 'http://localhost:3000/api'; 
+const API_BASE_URL = 'http://localhost:3000/api';
 const API_TEAMS_ENDPOINT = `${API_BASE_URL}/teams`;
 
 // Mock de Dados Iniciais
@@ -41,7 +41,7 @@ if (teamsGrid) {
 
     function renderTeams(teams) {
         teamsGrid.innerHTML = '';
-        if(teams.length === 0) {
+        if (teams.length === 0) {
             teamsGrid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; margin-top: 2rem; font-size: 1.1rem;">Nenhum time ou vaga encontrado.</p>`;
             return;
         }
@@ -64,9 +64,9 @@ if (teamsGrid) {
             }
 
             const imgUrl = team.logoUrl || 'https://via.placeholder.com/150/1e293b/10b981?text=FABR';
-            
+
             // Badge visual baseada no switch de peneiras abertas
-            const badgeHTML = team.isOpenTryout 
+            const badgeHTML = team.isOpenTryout
                 ? `<div class="badge badge-open"><i class="fa-solid fa-fire"></i> PENEIRA ABERTA</div>`
                 : `<div class="badge badge-closed"><i class="fa-solid fa-users"></i> Formando Elenco</div>`;
 
@@ -93,8 +93,8 @@ if (teamsGrid) {
 
     searchInput?.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
-        const filteredTeams = teamsData.filter(t => 
-            t.name.toLowerCase().includes(term) || 
+        const filteredTeams = teamsData.filter(t =>
+            t.name.toLowerCase().includes(term) ||
             t.city.toLowerCase().includes(term) ||
             t.state.toLowerCase().includes(term)
         );
@@ -126,7 +126,7 @@ if (teamForm) {
 
     teamForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const submitBtn = document.getElementById('submit-btn');
         const originalBtnText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Publicando Anúncio...';
@@ -150,10 +150,10 @@ if (teamForm) {
 
         try {
             await new Promise(res => setTimeout(res, 1200));
-            
+
             teamForm.classList.add('hidden');
             document.querySelector('.form-warning').classList.add('hidden');
-            
+
             const successDiv = document.getElementById('success-message');
             successDiv.classList.remove('hidden');
 
@@ -162,6 +162,6 @@ if (teamForm) {
             alert("Erro ao publicar vaga.");
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
-        } 
+        }
     });
 }
