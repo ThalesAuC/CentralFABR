@@ -4,16 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anuncio de seleção</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏈</text></svg>">
-    <!-- Modern API Fonts -->
+    <title>FA BR - Anunciar Vaga</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8F%88%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -29,122 +27,102 @@
 
         <nav class="main-nav">
             <a href="index.html" class="nav-link outline-btn"><i class="fa-solid fa-users-viewfinder"></i> Ver Times</a>
-            <a href="cadastro.html" class="nav-link active"><i class="fa-solid fa-plus-circle"></i> Cadastrar Equipe</a>
+            <a href="cadastro.html" class="nav-link active"><i class="fa-solid fa-bullhorn"></i> Meu time tem uma
+                vaga!</a>
         </nav>
     </header>
 
     <main class="container split-container">
 
-        <!-- Formulário de Cadastro -->
+        <!-- Formulário de Anúncio -->
         <section class="registration-section glass-panel">
-            <h2><i class="fa-solid fa-plus-circle"></i> Solicitar Registro de Time</h2>
-            <p class="form-warning"><i class="fa-solid fa-clock"></i> Seu cadastro passará por moderação. Um
-                administrador validará as suas informações.</p>
+            <h2><i class="fa-solid fa-bullhorn"></i> Anunciar Vaga ou Tryout</h2>
+            <p class="form-warning"><i class="fa-solid fa-people-group"></i> Divulgue vagas e recrute novos atletas.
+                Essa ação fortalece toda a comunidade!</p>
 
-            <!-- Mensagem de Sucesso (Oculta por padrão) -->
             <div id="success-message" class="success-message hidden">
                 <i class="fa-solid fa-check-circle success-icon"></i>
-                <h3>Solicitação Enviada!</h3>
-                <p>Sua equipe está sob análise dos administradores. Um retorno será enviado para o e-mail: <strong
-                        id="success-email"></strong> com o status da aprovação.</p>
-                <button type="button" class="action-btn" onclick="window.location.href='index.html'">Voltar para o
-                    Início</button>
+                <h3>Anúncio Recebido!</h3>
+                <p>Muito obrigado pela contribuição! Seu anúncio passará por uma leve revisão e estará disponível
+                    rapidamente na lista.</p>
+                <button type="button" class="action-btn" onclick="window.location.href='index.html'">Acessar
+                    Lista</button>
             </div>
 
             <form id="team-form">
-                <div class="section-subtitle">Dados do Representante</div>
+
+                <div class="section-subtitle">Identificação do Anunciante</div>
                 <div class="input-group">
-                    <label for="contact-email"><i class="fa-solid fa-envelope"></i> E-mail de Contato (Para
-                        Retorno)</label>
-                    <input type="email" id="contact-email" placeholder="admin@seutime.com.br" required>
+                    <label for="reporter-type"><i class="fa-solid fa-circle-user"></i> Você faz parte da organização da
+                        equipe?</label>
+                    <select id="reporter-type" class="custom-select" required>
+                        <option value="" disabled selected>Escolha sua categoria...</option>
+                        <option value="comunidade">Apenas Fã / Membro da Comunidade</option>
+                        <option value="organizacao">Sou Coach / Cargo Oficial da Equipe</option>
+                    </select>
                 </div>
 
-                <div class="section-subtitle">Dados da Franquia</div>
+                <div class="input-group hidden" id="org-email-group">
+                    <label for="contact-email"><i class="fa-solid fa-envelope"></i> E-mail Oficial de Contato da
+                        Equipe</label>
+                    <input type="email" id="contact-email" placeholder="contato@seutime.com.br">
+                </div>
+
+                <div class="section-subtitle">Dados do Time</div>
                 <div class="input-group">
                     <label for="team-name">Nome do Time</label>
-                    <input type="text" id="team-name" placeholder="Ex: Galo FA" required>
+                    <input type="text" id="team-name" placeholder="Ex: Ceará Caçadores" required>
                 </div>
 
                 <div class="input-row">
                     <div class="input-group">
-                        <label for="team-city">Cidade</label>
-                        <input type="text" id="team-city" placeholder="Belo Horizonte" required>
+                        <label for="team-city">Cidade Sede</label>
+                        <input type="text" id="team-city" placeholder="Fortaleza" required>
                     </div>
                     <div class="input-group">
                         <label for="team-state">Estado (UF)</label>
-                        <input type="text" id="team-state" placeholder="MG" maxlength="2" required>
+                        <input type="text" id="team-state" placeholder="CE" maxlength="2" required>
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label for="team-logo">URL do Escudo (Logo)</label>
-                    <input type="url" id="team-logo" placeholder="https://exemplo.com/logo.png" required>
+                    <label for="team-logo">URL do Emblema do Time</label>
+                    <input type="url" id="team-logo" placeholder="https://..." required>
                 </div>
 
-                <div class="section-subtitle">Recrutamento e Treinos</div>
+                <div class="section-subtitle">Vagas e Recrutamento</div>
                 <div class="input-group">
-                    <label for="team-training"><i class="fa-solid fa-map-pin"></i> Local de Treino (CT / Campo)</label>
-                    <input type="text" id="team-training" placeholder="Ex: Parque Universitário, Campo 2" required>
+                    <label for="team-training"><i class="fa-solid fa-map-pin"></i> Local dos Tryouts/Treino Base</label>
+                    <input type="text" id="team-training" placeholder="Ex: Parque 12, Campo 4" required>
                 </div>
                 <div class="input-group">
-                    <label for="team-tryout"><i class="fa-solid fa-link"></i> Link para Inscrição / Seletiva
-                        (Tryout)</label>
-                    <input type="url" id="team-tryout" placeholder="https://forms.gle/exemplo" required>
+                    <label for="team-tryout"><i class="fa-solid fa-link"></i> Link do Formulário Inscrição
+                        Oficial</label>
+                    <input type="url" id="team-tryout" placeholder="https://forms.gle/..." required>
+                </div>
+
+                <div class="input-group checkbox-group">
+                    <input type="checkbox" id="is-open-tryout" checked>
+                    <label for="is-open-tryout"><strong>Tryout/Processo Seletivo está ABERTO hoje!</strong></label>
                 </div>
 
                 <div class="social-inputs">
-                    <p class="section-subtitle">Redes Sociais (Opcional)</p>
+                    <p class="section-subtitle">Mídias</p>
                     <div class="input-row">
                         <div class="input-group">
                             <label for="social-instagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
                             <input type="text" id="social-instagram" placeholder="@nomedotime">
                         </div>
                         <div class="input-group">
-                            <label for="social-twitter"><i class="fa-brands fa-x-twitter"></i> Twitter</label>
-                            <input type="text" id="social-twitter" placeholder="@nomedotime">
+                            <label for="social-youtube"><i class="fa-brands fa-youtube"></i> YouTube</label>
+                            <input type="text" id="social-youtube" placeholder="Canal Oficial">
                         </div>
                     </div>
                 </div>
 
-                <p class="section-subtitle">Elenco (Jogadores)</p>
-
-                <!-- Área de Adição de Jogador -->
-                <div class="player-add-box">
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="player-name">Nome do Jogador</label>
-                            <input type="text" id="player-name" placeholder="Ex: João Silva">
-                        </div>
-                        <div class="input-group">
-                            <label for="player-age">Idade</label>
-                            <input type="number" id="player-age" placeholder="Ex: 24" min="16" max="60">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="player-weight">Peso (kg)</label>
-                            <input type="number" step="0.1" id="player-weight" placeholder="Ex: 95.5">
-                        </div>
-                        <div class="input-group">
-                            <label for="player-height">Altura (m)</label>
-                            <input type="number" step="0.01" id="player-height" placeholder="Ex: 1.85">
-                        </div>
-                    </div>
-                    <button type="button" id="add-player-btn" class="action-btn secondary-btn"><i
-                            class="fa-solid fa-user-plus"></i> Adicionar ao Elenco</button>
-                </div>
-
-                <!-- Lista Visual de Jogadores no Frontend -->
-                <div class="players-list-container">
-                    <h4 class="players-list-title">Jogadores Escalonados (<span id="players-count">0</span>)</h4>
-                    <ul id="players-list" class="players-list">
-                        <!-- Itens adicionados pelo JS -->
-                    </ul>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submit-btn" style="margin-top: 2rem;">
-                    <span>Solicitar Registro da Equipe</span>
-                    <i class="fa-solid fa-paper-plane"></i>
+                <button type="submit" class="submit-btn" id="submit-btn" style="margin-top: 1.5rem;">
+                    <span>Publicar Anúncio de Vaga</span>
+                    <i class="fa-solid fa-bullhorn"></i>
                 </button>
             </form>
         </section>
@@ -152,16 +130,15 @@
         <!-- Seção Informativa Lateral -->
         <aside class="info-sidebar">
             <div class="glass-panel text-center">
-                <i class="fa-solid fa-file-contract display-icon"></i>
-                <h3>Passos para Aprovação</h3>
+                <i class="fa-solid fa-bullhorn display-icon"></i>
+                <h3>Portal da Comunidade</h3>
                 <ul class="steps-list">
-                    <li><strong>1. Preencher</strong>: Reúna os dados da equipe, cidade, escudo e meios de contato.</li>
-                    <li><strong>2. Elenco</strong>: Inclua as informações dos atletas base do time (Nome, Altura, Peso,
-                        Idade).</li>
-                    <li><strong>3. Envio</strong>: Encaminhe sua solicitação pelo sistema.</li>
-                    <li><strong>4. Análise</strong>: Nossa equipe validará a existência e os dados do time.</li>
-                    <li><strong>5. Conclusão</strong>: Você receberá por e-mail a confirmação e o time aparecerá no
-                        Portal.</li>
+                    <li><strong>Ajudantes</strong>: Sem a obrigação de e-mail, qualquer frequentador de treinos que
+                        saiba de vagas pode inserir seu time na lista nacional!</li>
+                    <li><strong>Aviso Oficial</strong>: Ao marcar que você faz parte da equipe e fornecer o e-mail, seu
+                        cadastro ganha selo de verificador oficial.</li>
+                    <li><strong>Tryouts Abertas</strong>: Ao inserir um Card com tryouts abertas a página vai dar brilho
+                        e destaque neon para atrair os fãs.</li>
                 </ul>
             </div>
         </aside>

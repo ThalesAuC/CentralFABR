@@ -1,21 +1,6 @@
-// Configurações da API
+// Configurações Mockadas
 const API_BASE_URL = 'http://localhost:3000/api'; 
 const API_TEAMS_ENDPOINT = `${API_BASE_URL}/teams`;
-
-// --- ESTRUTURA PARA A API ---
-// Payload esperado na requisição:
-// {
-//   reporterType: "comunidade" | "organizacao",
-//   orgEmail: "contato@galofa.com" | null,
-//   name: "Galo FA",
-//   city: "Belo Horizonte",
-//   state: "MG",
-//   logoUrl: "https://...",
-//   trainingLocation: "Sesi Esportes",
-//   tryoutLink: "https://forms.gle/...",
-//   isOpenTryout: true | false,
-//   social: { instagram: "galofamericano", youtube: "galofatv" }
-// }
 
 // Mock de Dados Iniciais
 let teamsData = [
@@ -42,13 +27,12 @@ let teamsData = [
     }
 ];
 
-// Contextos
 const teamsGrid = document.getElementById('teams-grid');
 const searchInput = document.getElementById('search-input');
 const teamForm = document.getElementById('team-form');
 
 // -------------------------------------------------------------
-// LÓGICA DA PÁGINA: INDEX (VISUALIZAÇÃO DE TIMES)
+// PÁGINA: INDEX
 // -------------------------------------------------------------
 if (teamsGrid) {
     function fetchTeams() {
@@ -58,7 +42,7 @@ if (teamsGrid) {
     function renderTeams(teams) {
         teamsGrid.innerHTML = '';
         if(teams.length === 0) {
-            teamsGrid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; margin-top: 2rem; font-size: 1.1rem;">Nenhuma vaga ou time encontrado. Tente pesquisar de outra forma.</p>`;
+            teamsGrid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; margin-top: 2rem; font-size: 1.1rem;">Nenhum time ou vaga encontrado.</p>`;
             return;
         }
 
@@ -81,12 +65,12 @@ if (teamsGrid) {
 
             const imgUrl = team.logoUrl || 'https://via.placeholder.com/150/1e293b/10b981?text=FABR';
             
-            // Badge / Pílula de recrutamento
+            // Badge visual baseada no switch de peneiras abertas
             const badgeHTML = team.isOpenTryout 
                 ? `<div class="badge badge-open"><i class="fa-solid fa-fire"></i> PENEIRA ABERTA</div>`
                 : `<div class="badge badge-closed"><i class="fa-solid fa-users"></i> Formando Elenco</div>`;
 
-            const btnText = team.isOpenTryout ? 'Quero Participar da Seletiva' : 'Acessar Link do Time';
+            const btnText = team.isOpenTryout ? 'Quero Entrar No Time' : 'Acessar O Time';
 
             card.innerHTML = `
                 ${badgeHTML}
@@ -100,7 +84,7 @@ if (teamsGrid) {
                     <a href="${team.tryoutLink || '#'}" target="_blank" class="${team.isOpenTryout ? 'btn-tryout glow-btn' : 'btn-tryout'}"><i class="fa-solid fa-helmet-un"></i> ${btnText}</a>
                 </div>
                 <div class="social-links">
-                    ${socialHTML || '<span style="font-size: 0.8rem; color: #64748b;">Nenhuma rede oficial</span>'}
+                    ${socialHTML || '<span style="font-size: 0.8rem; color: #64748b;">Nenhuma mídia postada</span>'}
                 </div>
             `;
             teamsGrid.appendChild(card);
@@ -121,14 +105,14 @@ if (teamsGrid) {
 }
 
 // -------------------------------------------------------------
-// LÓGICA DA PÁGINA: ANÚNCIO / CADASTRO DA COMUNIDADE
+// PÁGINA: CADASTRO
 // -------------------------------------------------------------
 if (teamForm) {
     const reporterType = document.getElementById('reporter-type');
     const orgEmailGroup = document.getElementById('org-email-group');
     const emailInput = document.getElementById('contact-email');
 
-    // Mostra input de email apenas se for a organização listando a vaga
+    // Validação de email restrita a organizadores
     reporterType.addEventListener('change', (e) => {
         if (e.target.value === 'organizacao') {
             orgEmailGroup.classList.remove('hidden');
@@ -173,9 +157,9 @@ if (teamForm) {
             const successDiv = document.getElementById('success-message');
             successDiv.classList.remove('hidden');
 
-            console.log("SUCESSO: Vaga enviada para aprovação:", payload);
+            console.log("PAYLOAD PRONTO PARA API:", payload);
         } catch (err) {
-            alert("Erro ao anunciar a vaga. Tente novamente.");
+            alert("Erro ao publicar vaga.");
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
         } 
